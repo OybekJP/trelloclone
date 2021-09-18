@@ -1,0 +1,29 @@
+.card_container {
+  display: flex;
+  justify-content: stretch;
+  align-items: flex-start;
+  position: relative;
+  margin: 2px 0;
+}
+/*place delete todo button inside textarea*/
+.card_container button {
+  position: absolute;
+  right: 0;
+}
+textarea {
+  /*allow only vertical textarea size change*/
+  resize: vertical;
+  width: 239px;
+  border: none;
+  padding: 5px 3px;
+  border-radius: 4px;
+}
+button{
+  border: none;
+  padding: 5px 8px;
+  border-radius: 4px;
+}
+button:hover{
+  background: gray;
+  cursor:pointer;
+}

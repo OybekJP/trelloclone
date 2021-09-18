@@ -1,0 +1,42 @@
+.list_wrap {
+  /* height: 100%; */
+  background: #ebecf0;
+  min-width: 272px;
+  margin: 0 4px;
+  border-radius: 5px;
+}
+.list_content {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+  max-height: 85vh;
+}
+.todoItems {
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 5px 0;
+}
+.listTitle input {
+  width: 100%;
+  font-size: 1.3rem;
+  background: #ebecf0;
+}
+.addTodo {
+  box-sizing: border-box !important;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+}
+.addTodo button {
+  position: relative;
+  margin-left: 5px;
+  background: #0079bf;
+  color: white;
+}
+input, .addTodo button{
+  border: none;
+  padding: 5px 3px;
+  border-radius: 4px;
+}
