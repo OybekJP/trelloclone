@@ -5,8 +5,8 @@ function Card({ card, list, deleteCard, cardTitleChange }) {
   const todoCard = useRef();
 
   //delete todo card
-  function handleDeleteCard(e) {
-    deleteCard(card.id);
+  function handleDeleteCard() {
+    deleteCard(card.id, list.id);
   }
   function handleTodoChange(e) {
     cardTitleChange(card.id, list.id, e.target.value);

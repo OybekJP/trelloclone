@@ -90,7 +90,7 @@ function App() {
 
   function deleteList(listId) {
     const newData = data;
-    //TASK:delete this direct state modification if local stroage doesnt store it 
+    //TASK:delete this direct state modification if local stroage doesnt store it
     delete newData.lists[listId];
     const newListIds = newData.listIds.filter((id) => id !== listId);
     // console.log(filtered);
@@ -102,9 +102,22 @@ function App() {
     console.log(newState);
   }
 
-  function deleteCard(cardId, listId){
-    const newCards = data.listsp[listId].cards.filter(card=>card.id !== cardId);
-
+  function deleteCard(cardId, listId) {
+    const newCards = data.lists[listId].cards.filter(
+      (card) => card.id !== cardId
+    );
+    console.log(newCards);
+    const newState = {
+      ...data,
+      lists: {
+        ...data.lists,
+        [listId]: {
+          ...data.lists[listId],
+          cards: newCards,
+        },
+      },
+    };
+    setData(newState);
   }
 
   return (
