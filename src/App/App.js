@@ -6,51 +6,68 @@ import store from "../utils/store";
 import StoreApi from "../utils/storeApi";
 
 function App() {
-  //playlist
-  // const [listName, setPlaylist] = useState("");
-  //todo items state
-  // const [todos, setTodos] = useState([]);
   const [data, setData] = useState(store);
 
-  function listNameChange(listTitleId) {
-    const newListTitle = data;
-    const id = listTitleId[1];
-    //assumes that listobject name and list id are same
-    newListTitle.lists[id].title = listTitleId[0];
-    // newListTitle.listIds.push(changingList.title);
-    setData(newListTitle);
-    console.log(data);
+  function listTitleChange(title, listId) {
+    const list = data.lists[listId];
+    list.title = title;
+
+    const newState = {
+      ...data,
+      lists: {
+        ...data.lists,
+        [listId]: list,
+      },
+    };
+    console.timeLog(newState);
   }
+  function cardTitleChange(cardId, listId, title) {
+    //save index of changed card
+    let cardIndex;
+    //save cards in the same list
+    const cards = data.lists[listId].cards.filter((card, index) => {
+      if (card.id === cardId) {
+        cardIndex = index;
+      }
+      return card.id !== cardId;
+    });
 
-  function addMoreCard(newTodoTitle) {
-    //TASK: change setState to new data
-    //call prevValue property to retreive all previous todos and add new one
-    console.log(newTodoTitle);
-    const newData = data;
-    // const changingList = newListCard.lists[]
-    // setTodos((prevTodos) => {
-    //   return [
-    //     ...prevTodos,
-    //     { id: uuidv4(), name: newTodoTitle, complete: false },
-    //   ];
-    // });
+    const updatedCard = { id: cardId, title: title };
+    //add new card to its original index position
+    cards.splice(cardIndex, 0, updatedCard);
+
+    const newState = {
+      ...data,
+      lists: {
+        ...data.lists,
+        [listId]: {
+          ...data.lists[listId],
+          cards: cards,
+        },
+      },
+    };
+    setData(newState);
   }
+  function addMoreCard(listId, newCardTitle) {
+    //make a copy of current data
+    const newCardId = uuidv4();
+    const newCard = {
+      id: newCardId,
+      title: newCardTitle,
+    };
+    const updatedList = data.lists[listId];
+    updatedList.cards = [...updatedList.cards, newCard];
 
-  // //delete todo item
-  // function deleteTodo(todoId) {
-  //   //TASK: change setState to new data
-  //   const todosCopy = [...todos];
-  //   const newTodos = todosCopy.filter((todo) => todo.id !== todoId);
-  //   setTodos(newTodos);
-  // }
-
-  // //change todo items name. receives array with 2 elements, 1st is id, 2nd is name
-  // function changeTodoName(todoIdName) {
-  //   const newTodos = [...todos];
-  //   const changingTodo = newTodos.find((todo) => todo.id === todoIdName[0]);
-  //   changingTodo.name = todoIdName[1];
-  //   setTodos(newTodos);
-  // }
+    const newState = {
+      ...data,
+      lists: {
+        ...data.lists,
+        //eventhough we copied all lists including one we want to update, our updated list will replace it because of the nature of objects.
+        [listId]: updatedList,
+      },
+    };
+    setData(newState);
+  }
 
   let newListTitle = useRef();
 
@@ -71,6 +88,25 @@ function App() {
     setData(newState);
   }
 
+  function deleteList(listId) {
+    const newData = data;
+    //TASK:delete this direct state modification if local stroage doesnt store it 
+    delete newData.lists[listId];
+    const newListIds = newData.listIds.filter((id) => id !== listId);
+    // console.log(filtered);
+    const newState = {
+      ...data,
+      listIds: newListIds,
+    };
+    setData(newState);
+    console.log(newState);
+  }
+
+  function deleteCard(cardId, listId){
+    const newCards = data.listsp[listId].cards.filter(card=>card.id !== cardId);
+
+  }
+
   return (
     <div className="App">
       <nav className="header">
@@ -86,10 +122,11 @@ function App() {
               <List
                 list={list}
                 key={listId}
-                listNameChange={listNameChange}
-                // addMoreTodo={addMoreTodo}
-                // deleteTodo={deleteTodo}
-                // changeTodoName={changeTodoName}
+                listTitleChange={listTitleChange}
+                addMoreCard={addMoreCard}
+                deleteCard={deleteCard}
+                deleteList={deleteList}
+                cardTitleChange={cardTitleChange}
               />
             </>
           );

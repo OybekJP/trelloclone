@@ -3,26 +3,40 @@ import "./List.css";
 import Card from "../Card/Card";
 import Listtitle from "../Listtitle/Listtitle";
 import StoreApi from "../utils/storeApi";
+import uuidv4 from "uuid/dist/v4";
 
-function List({ list, localKey, listNameChange, deleteTodo, changeTodoName }) {
-  const { addMoreCard } = useContext(StoreApi);
+function List({
+  list,
+  localKey,
+  addMoreCard,
+  listTitleChange,
+  deleteCard,
+  deleteList,
+  cardTitleChange,
+}) {
+  // const [lists, setList] = useState("");
 
   //get access to JSX element
   const newTodoName = useRef();
-  function handleAddMoreTodo() {
-    let name = newTodoName.current.value;
+  function handleAddMoreCard() {
+    let newCardTitle = newTodoName.current.value;
     //stop function if no input is made
-    if (name === "") return;
-    addMoreCard(name);
+    if (newCardTitle === "") return;
+    addMoreCard(list.id, newCardTitle);
     newTodoName.current.value = "";
-    console.log(name);
+  }
+
+  function handleDeleteList() {
+    console.log("clicked list " + list.id);
+    deleteList(list.id);
   }
 
   return (
     <div className="list_wrap">
       <div className="list_content">
         <div className="listTitle">
-          <Listtitle listNameChange={listNameChange} list={list} />
+          <Listtitle listTitleChange={listTitleChange} list={list} />
+          <button onClick={handleDeleteList}>-</button>
         </div>
         <div className="todoItems">
           {list.cards &&
@@ -31,15 +45,16 @@ function List({ list, localKey, listNameChange, deleteTodo, changeTodoName }) {
                 <Card
                   key={card.id}
                   card={card}
-                  deleteTodo={deleteTodo}
-                  changeTodoName={changeTodoName}
+                  list={list}
+                  deleteCard={deleteCard}
+                  cardTitleChange={cardTitleChange}
                 />
               );
             })}
         </div>
         <div className="addTodo">
           <input type="text" ref={newTodoName} />
-          <button onClick={handleAddMoreTodo}>ADDCARD</button>
+          <button onClick={handleAddMoreCard}>ADDCARD</button>
         </div>
       </div>
     </div>
