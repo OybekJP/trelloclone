@@ -1,6 +1,8 @@
 import React, { useRef, useState } from "react";
 import "./Card.css";
 import { Draggable } from "react-beautiful-dnd";
+// import styled from "styled-components";
+//yarn add styled-components 
 
 function Card({ card, index, list, deleteCard, cardTitleChange }) {
   const [cards, setCard] = useState(false);
@@ -37,7 +39,6 @@ function Card({ card, index, list, deleteCard, cardTitleChange }) {
     cardToggle = (
       <>
         <span className="textarea">{card.title}</span>
-        {/* <button onClick={handleCardToggle}>/</button> */}
         <i onClick={handleCardToggle} class="fas fa-pen"></i>
       </>
     );
@@ -54,12 +55,13 @@ function Card({ card, index, list, deleteCard, cardTitleChange }) {
   }
   return (
     <Draggable draggableId={card.id} index={index}>
-      {(provided) => (
+      {(provided, snapshot) => (
         <div
           className="card_container"
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
+          isDragging
         >
           {/* <textarea
             type="text"

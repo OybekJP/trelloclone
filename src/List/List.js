@@ -4,10 +4,11 @@ import Card from "../Card/Card";
 import Listtitle from "../Listtitle/Listtitle";
 import StoreApi from "../utils/storeApi";
 import uuidv4 from "uuid/dist/v4";
-import { Droppable } from "react-beautiful-dnd";
+import { Droppable, Draggable } from "react-beautiful-dnd";
 
 function List({
   list,
+  listIndex,
   localKey,
   addMoreCard,
   listTitleChange,
@@ -66,45 +67,50 @@ function List({
   }
 
   return (
-    <div className="list_wrap">
-      <div className="list_content">
-        <div className="listTitleContainer">
-          <Listtitle listTitleChange={listTitleChange} list={list} />
-          {/* <button onClick={handleDeleteList}>-</button> */}
-          <i
-            onClick={handleDeleteList}
-            class="deleteIcon fas fa-minus-square"
-          ></i>
-          <p className="numOfCards">
-            {list.cards.length} {list.cards.length === 1 ? " card" : " cards"}
-          </p>
-        </div>
-        <Droppable droppableId={list.id}>
-          {(provided) => (
-            <div
-              className="todoItems"
-              ref={provided.innerRef}
-              {...provided.droppableProps}
-            >
-              {list.cards.map((card, index) => {
-                return (
-                  <Card
-                    key={card.id}
-                    card={card}
-                    index={index}
-                    list={list}
-                    deleteCard={deleteCard}
-                    cardTitleChange={cardTitleChange}
-                  />
-                );
-              })}
-              {provided.placeholder}
+    <Draggable draggableId={list.id} index={listIndex}>
+      {(provided) => (
+        <div className="list_wrap" {...provided.draggableProps} ref={provided.innerRef}>
+          <div className="list_content">
+            <div className="listTitleContainer" {...provided.dragHandleProps}>
+              <Listtitle listTitleChange={listTitleChange} list={list} />
+              {/* <button onClick={handleDeleteList}>-</button> */}
+              <i
+                onClick={handleDeleteList}
+                class="deleteIcon fas fa-minus-square"
+              ></i>
+              <p className="numOfCards">
+                {list.cards.length}{" "}
+                {list.cards.length === 1 ? " card" : " cards"}
+              </p>
             </div>
-          )}
-        </Droppable>
-        <div>{addCardToggle}</div>
-      </div>
-    </div>
+            <Droppable droppableId={list.id} type="card">
+              {(provided) => (
+                <div
+                  className="todoItems"
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                >
+                  {list.cards.map((card, index) => {
+                    return (
+                      <Card
+                        key={card.id}
+                        card={card}
+                        index={index}
+                        list={list}
+                        deleteCard={deleteCard}
+                        cardTitleChange={cardTitleChange}
+                      />
+                    );
+                  })}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+            <div>{addCardToggle}</div>
+          </div>
+        </div>
+      )}
+    </Draggable>
   );
 }
 

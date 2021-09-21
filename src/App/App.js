@@ -4,7 +4,7 @@ import List from "../List/List";
 import uuidv4 from "uuid/dist/v4";
 import store from "../utils/store";
 import StoreApi from "../utils/storeApi";
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 function App() {
   const [data, setData] = useState(store);
@@ -118,9 +118,9 @@ function App() {
     setData(newState);
   }
 
-  //persist reordering with
+  //persist reordering of cards and columns during drag and drop
   const onDragEnd = (result) => {
-    const { destination, source, draggableId } = result;
+    const { destination, source, draggableId, type } = result;
 
     //exit the reordering if there was no destination
     if (!destination) {
@@ -134,29 +134,79 @@ function App() {
       return;
     }
 
-    const list = data.lists[source.droppableId];
-    const newCardsOrder = Array.from(list.cards);
-    //remove element from cards array
-    newCardsOrder.splice(source.index, 1);
-    //access the whole card object being dropped from original source and add to neworder
-    newCardsOrder.splice(
+    //logic for the case when lists are being moved to a new destination
+    if (type === "list") {
+      const newListOrder = Array.from(data.listIds);
+      newListOrder.splice(source.index, 1);
+      newListOrder.splice(destination.index, 0, draggableId);
+
+      const newState = {
+        ...data,
+        listIds: newListOrder,
+      };
+      setData(newState);
+      return;
+    }
+
+    const start = data.lists[source.droppableId];
+    const finish = data.lists[destination.droppableId];
+
+    //logic for the case when card ends up in the same list
+    if (start === finish) {
+      const newCardsOrder = Array.from(start.cards);
+      //remove element from cards array
+      newCardsOrder.splice(source.index, 1);
+      //access the whole card object being dropped from original source and add to neworder
+      newCardsOrder.splice(
+        destination.index,
+        0,
+        data.lists[source.droppableId].cards[source.index]
+      );
+
+      //our list with new reordered cards array
+      const newList = {
+        ...start,
+        cards: newCardsOrder,
+      };
+
+      //use newList update the state and override with new changes
+      const newState = {
+        ...data,
+        lists: {
+          ...data.lists,
+          [newList.id]: newList,
+        },
+      };
+      setData(newState);
+      return
+    }
+
+
+    //logic for case when cards move from one list to another
+    const startCardsOrder = Array.from(start.cards);
+    startCardsOrder.splice(source.index, 1);
+    const newStart = {
+      ...start,
+      cards: startCardsOrder,
+    };
+
+    const finishCardsOrder = Array.from(finish.cards);
+    finishCardsOrder.splice(
       destination.index,
       0,
       data.lists[source.droppableId].cards[source.index]
     );
-
-    //our list with new reordered cards array
-    const newList = {
-      ...list,
-      cards: newCardsOrder,
+    const newFinish = {
+      ...finish,
+      cards: finishCardsOrder,
     };
 
-    //use newList update the state and override with new changes
     const newState = {
       ...data,
       lists: {
         ...data.lists,
-        [newList.id]: newList,
+        [newStart.id]: newStart,
+        [newFinish.id]: newFinish,
       },
     };
     setData(newState);
@@ -169,30 +219,40 @@ function App() {
           <i class="fab fa-trello"></i>
           <h1>Trello mini</h1>
         </nav>
-        <div className="listContainer">
-          {data.listIds.map((listId) => {
-            const list = data.lists[listId];
-            return (
-              <>
-                <List
-                  list={list}
-                  key={listId}
-                  listTitleChange={listTitleChange}
-                  addMoreCard={addMoreCard}
-                  deleteCard={deleteCard}
-                  deleteList={deleteList}
-                  cardTitleChange={cardTitleChange}
-                />
-              </>
-            );
-          })}
+        <Droppable droppableId="all-columns" direction="horizontal" type="list">
+          {(provided) => (
+            <div
+              className="listContainer"
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
+              {data.listIds.map((listId, listIndex) => {
+                const list = data.lists[listId];
+                return (
+                  <>
+                    <List
+                      list={list}
+                      listIndex={listIndex}
+                      key={listId}
+                      listTitleChange={listTitleChange}
+                      addMoreCard={addMoreCard}
+                      deleteCard={deleteCard}
+                      deleteList={deleteList}
+                      cardTitleChange={cardTitleChange}
+                    />
+                  </>
+                );
+              })}
 
-          <div>
-            <button className="addCardlistBtn" onClick={addMoreList}>
-              + Add another list
-            </button>
-          </div>
-        </div>
+              <div>
+                <button className="addCardlistBtn" onClick={addMoreList}>
+                  + Add another list
+                </button>
+              </div>
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
       </div>
     </DragDropContext>
   );
