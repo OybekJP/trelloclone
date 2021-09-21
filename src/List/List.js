@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import "./List.css";
 import Card from "../Card/Card";
 import Listtitle from "../Listtitle/Listtitle";
 import StoreApi from "../utils/storeApi";
 import uuidv4 from "uuid/dist/v4";
+import { Droppable } from "react-beautiful-dnd";
 
 function List({
   list,
@@ -14,48 +15,95 @@ function List({
   deleteList,
   cardTitleChange,
 }) {
-  // const [lists, setList] = useState("");
+  //save the state of toggle to add new card
+  const [addCard, setAddCard] = useState(false);
 
-  //get access to JSX element
-  const newTodoName = useRef();
+  //add new card
   function handleAddMoreCard() {
-    let newCardTitle = newTodoName.current.value;
+    let cardSpan = document.getElementById("cardSpan").innerText;
     //stop function if no input is made
-    if (newCardTitle === "") return;
-    addMoreCard(list.id, newCardTitle);
-    newTodoName.current.value = "";
+    if (cardSpan === "") return;
+    addMoreCard(list.id, cardSpan);
+    // newTodoName.current.value = "";
+    setAddCard(!addCard);
   }
 
+  //delete list
   function handleDeleteList() {
     console.log("clicked list " + list.id);
     deleteList(list.id);
   }
 
+  //set the state to toggle the add card part
+  function handleAddCardToggle() {
+    setAddCard(!addCard);
+  }
+
+  let addCardToggle;
+  if (addCard === true) {
+    addCardToggle = (
+      <>
+        <span
+          contentEditable
+          rows="3"
+          className="textarea addCardSpan"
+          id="cardSpan"
+          // onBlur={handleAddCardToggle} causing problem: cancel addmorecard method
+        ></span>
+        <button className="saveNewCard" onClick={handleAddMoreCard}>
+          Add Card
+        </button>
+        <i onClick={handleAddCardToggle} class="fas fa-times"></i>
+      </>
+    );
+  } else {
+    addCardToggle = (
+      <>
+        <button className="addCardlistBtn" onClick={handleAddCardToggle}>
+          + Add a card
+        </button>
+      </>
+    );
+  }
+
   return (
     <div className="list_wrap">
       <div className="list_content">
-        <div className="listTitle">
+        <div className="listTitleContainer">
           <Listtitle listTitleChange={listTitleChange} list={list} />
-          <button onClick={handleDeleteList}>-</button>
+          {/* <button onClick={handleDeleteList}>-</button> */}
+          <i
+            onClick={handleDeleteList}
+            class="deleteIcon fas fa-minus-square"
+          ></i>
+          <p className="numOfCards">
+            {list.cards.length} {list.cards.length === 1 ? " card" : " cards"}
+          </p>
         </div>
-        <div className="todoItems">
-          {list.cards &&
-            list.cards.map((card) => {
-              return (
-                <Card
-                  key={card.id}
-                  card={card}
-                  list={list}
-                  deleteCard={deleteCard}
-                  cardTitleChange={cardTitleChange}
-                />
-              );
-            })}
-        </div>
-        <div className="addTodo">
-          <input type="text" ref={newTodoName} />
-          <button onClick={handleAddMoreCard}>ADDCARD</button>
-        </div>
+        <Droppable droppableId={list.id}>
+          {(provided) => (
+            <div
+              className="todoItems"
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
+              {list.cards.map((card, index) => {
+                return (
+                  <Card
+                    key={card.id}
+                    card={card}
+                    index={index}
+                    list={list}
+                    deleteCard={deleteCard}
+                    cardTitleChange={cardTitleChange}
+                  />
+                );
+              })}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+        <div>{addCardToggle}</div>
       </div>
     </div>
   );

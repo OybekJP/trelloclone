@@ -1,29 +1,55 @@
 .card_container {
-  display: flex;
-  justify-content: stretch;
-  align-items: flex-start;
+  /* display: flex; */
+  /* justify-content: stretch; */
+  /* align-items: flex-start; */
   position: relative;
-  margin: 2px 0;
+  margin: 3px 0;
 }
-/*place delete todo button inside textarea*/
-.card_container button {
+
+/*****created cards******/
+.textarea {
+  display: block;
+  overflow: hidden;
+  resize: none;
+  line-height: 20px;
+  cursor: pointer;
+  /*my own styling*/
+  background-color: white;
+  max-width: 17.5rem;
+  border-radius: 4px;
+  padding: 4px;
+  min-height: 20px;
+  width:100vw;
+}
+.textarea:hover {
+  background-color: #f7f7f7;
+}
+
+/****styling for icons***/
+.fa-pen {
   position: absolute;
-  right: 0;
+  right: 4px;
+  top: 4px;
+  /* z-index:100; */
+  color: transparent;
+  cursor: pointer;
 }
-textarea {
-  /*allow only vertical textarea size change*/
-  resize: vertical;
-  width: 239px;
-  border: none;
-  padding: 5px 3px;
-  border-radius: 4px;
+
+.textarea:hover ~ .fa-pen,
+.fa-pen:hover {
+  color: #6b778c;
 }
-button{
-  border: none;
-  padding: 5px 8px;
-  border-radius: 4px;
+
+.card_container button, .saveNewCard {
+  margin: 5px 5px 0 0;
+  background-color: var(--blue);
+  color: white;
 }
-button:hover{
-  background: gray;
-  cursor:pointer;
+
+.deleteCard {
+  background-color: tomato !important;
+}
+
+.saveNewCard{
+  
 }

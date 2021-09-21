@@ -1,3 +1,12 @@
+/*****Colors variable*****/
+
+:root {
+  --blue: #0079bf;
+  --dark-blue: #016199;
+  --light-gray: #ebecf0;
+}
+
+/*****Global reset*****/
 *,
 body,
 div {
@@ -7,17 +16,28 @@ div {
   font-size: 14px;
   font-family: sans-serif;
 }
+
 /*highlight selected text with blue*/
-::selection{
-  background-color: #0079bf;
-  color:white;
+::selection {
+  background-color: var(--blue);
+  color: white;
 }
 
+/*****Remove outline*****/
+input:focus,
+select:focus,
+textarea:focus,
+button:focus,
+span:focus {
+  outline: none;
+}
+
+/*****Header*****/
 .header {
   text-align: center;
   padding: 5px 0;
   max-height: 30px;
-  background: #0079bf;
+  background: var(--blue);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,10 +52,31 @@ h1 {
   font-size: 1.4rem;
   color: #79b0d0;
 }
+
+/****Basic button setup*****/
+button {
+  border: none;
+  padding: 5px 8px;
+  border-radius: 4px;
+  opacity: 0.7;
+}
+button:hover {
+  cursor: pointer;
+  opacity:1;
+}
+
 .listContainer {
   display: flex;
   align-items: flex-start;
   overflow-x: scroll;
   overflow-y: hidden;
   margin: 5px;
+}
+
+/****Add new list button*****/
+.addCardlistBtn {
+  position: relative;
+  top: 0;
+  min-width: 18.5rem;
+  background-color: rgb(228, 224, 224);
 }

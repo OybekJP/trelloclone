@@ -1,7 +1,8 @@
 .list_wrap {
   /* height: 100%; */
-  background: #ebecf0;
+  background: var(--light-gray);
   min-width: 272px;
+  max-width: 272px;
   margin: 0 4px;
   border-radius: 5px;
 }
@@ -18,25 +19,81 @@
   align-items: center;
   margin: 5px 0;
 }
-.listTitle input {
+/* .listTitle input {
   width: 100%;
   font-size: 1.3rem;
-  background: #ebecf0;
-}
-.addTodo {
-  box-sizing: border-box !important;
+  background: var(--light-gray);
+} */
+/* .addTodo {
   width: 100%;
   display: grid;
   grid-template-columns: 3fr 1fr;
-}
-.addTodo button {
+} */
+/* .addTodo button {
   position: relative;
   margin-left: 5px;
   background: #0079bf;
   color: white;
-}
-input, .addTodo button{
+} */
+/* input,
+.addTodo button {
   border: none;
   padding: 5px 3px;
   border-radius: 4px;
+} */
+
+.listTitle {
+  display: block;
+  overflow: hidden;
+  resize: none;
+  line-height: 20px;
+  min-width: 17.5rem;
+  border-radius: 4px;
+  padding: 4px;
+  padding-bottom: 0;
+
+  min-height: 20px;
+  font-size: 1.3rem;
+}
+
+.listEdit {
+  background: white;
+  cursor: text;
+}
+.listNotEdit {
+  cursor: pointer;
+}
+/***Adding placeholder to list title span****/
+.listTitle[contenteditable]:empty::before {
+  content: "Title";
+  color: #aab1be;
+}
+
+.listTitleContainer {
+  position: relative;
+}
+.deleteIcon {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  color: #6b778c;
+}
+.fa-minus-square:hover {
+  color: crimson;
+  cursor: pointer;
+}
+
+/*****add new card span styling******/
+.addCardSpan {
+  height: 60px;
+}
+.addCardSpan[contenteditable]:empty::before {
+  content: "Enter a title for this card...";
+  color: #aab1be;
+}
+
+/*****add new card span styling******/
+.numOfCards {
+  color: #aab1be;
+  padding-left: 4px;
 }

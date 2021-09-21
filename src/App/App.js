@@ -4,6 +4,7 @@ import List from "../List/List";
 import uuidv4 from "uuid/dist/v4";
 import store from "../utils/store";
 import StoreApi from "../utils/storeApi";
+import { DragDropContext } from "react-beautiful-dnd";
 
 function App() {
   const [data, setData] = useState(store);
@@ -19,7 +20,7 @@ function App() {
         [listId]: list,
       },
     };
-    console.timeLog(newState);
+    setData(newState);
   }
   function cardTitleChange(cardId, listId, title) {
     //save index of changed card
@@ -106,7 +107,6 @@ function App() {
     const newCards = data.lists[listId].cards.filter(
       (card) => card.id !== cardId
     );
-    console.log(newCards);
     const newState = {
       ...data,
       lists: {
@@ -120,45 +120,42 @@ function App() {
     setData(newState);
   }
 
+  function onDragEnd(result){
+
+  }
+
   return (
-    <div className="App">
-      <nav className="header">
-        <i class="fab fa-trello"></i>
-        <h1>Trello mini</h1>
-      </nav>
-      <div className="listContainer">
-        {console.log("outsideof map")}
-        {data.listIds.map((listId) => {
-          const list = data.lists[listId];
-          return (
-            <>
-              <List
-                list={list}
-                key={listId}
-                listTitleChange={listTitleChange}
-                addMoreCard={addMoreCard}
-                deleteCard={deleteCard}
-                deleteList={deleteList}
-                cardTitleChange={cardTitleChange}
-              />
-            </>
-          );
-        })}
+    <DragDropContext onDragEnd={onDragEnd}>
+      <div className="App">
+        <nav className="header">
+          <i class="fab fa-trello"></i>
+          <h1>Trello mini</h1>
+        </nav>
+        <div className="listContainer">
+          {console.log("outsideof map")}
+          {data.listIds.map((listId) => {
+            const list = data.lists[listId];
+            return (
+              <>
+                <List
+                  list={list}
+                  key={listId}
+                  listTitleChange={listTitleChange}
+                  addMoreCard={addMoreCard}
+                  deleteCard={deleteCard}
+                  deleteList={deleteList}
+                  cardTitleChange={cardTitleChange}
+                />
+              </>
+            );
+          })}
 
-        <div className="list_content">
-          <div className="listTitle">
-            {/* <input placeholder="+ Add another List"/> */}
-          </div>
-          <div className="addTodo">
-            {/* <input type="text" ref={newListTitle} /> */}
-            <button onClick={addMoreList}>+ Add another List</button>
-          </div>
+            <div >
+              <button className="addCardlistBtn" onClick={addMoreList}>+ Add another list</button>
+            </div>
         </div>
-
-        {/* <input type="text" placeholder="nana"></input> */}
-        {/* <button onClick={addNewList}>+ Add another list</button> */}
       </div>
-    </div>
+    </DragDropContext>
   );
 }
 
