@@ -94,13 +94,11 @@ function App() {
     //TASK:delete this direct state modification if local stroage doesnt store it
     delete newData.lists[listId];
     const newListIds = newData.listIds.filter((id) => id !== listId);
-    // console.log(filtered);
     const newState = {
       ...data,
       listIds: newListIds,
     };
     setData(newState);
-    console.log(newState);
   }
 
   function deleteCard(cardId, listId) {
@@ -120,9 +118,49 @@ function App() {
     setData(newState);
   }
 
-  function onDragEnd(result){
+  //persist reordering with
+  const onDragEnd = (result) => {
+    const { destination, source, draggableId } = result;
 
-  }
+    //exit the reordering if there was no destination
+    if (!destination) {
+      return;
+    }
+    //check if the user dropped back to its original position. if so do nothing
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
+
+    const list = data.lists[source.droppableId];
+    const newCardsOrder = Array.from(list.cards);
+    //remove element from cards array
+    newCardsOrder.splice(source.index, 1);
+    //access the whole card object being dropped from original source and add to neworder
+    newCardsOrder.splice(
+      destination.index,
+      0,
+      data.lists[source.droppableId].cards[source.index]
+    );
+
+    //our list with new reordered cards array
+    const newList = {
+      ...list,
+      cards: newCardsOrder,
+    };
+
+    //use newList update the state and override with new changes
+    const newState = {
+      ...data,
+      lists: {
+        ...data.lists,
+        [newList.id]: newList,
+      },
+    };
+    setData(newState);
+  };
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
@@ -132,7 +170,6 @@ function App() {
           <h1>Trello mini</h1>
         </nav>
         <div className="listContainer">
-          {console.log("outsideof map")}
           {data.listIds.map((listId) => {
             const list = data.lists[listId];
             return (
@@ -150,9 +187,11 @@ function App() {
             );
           })}
 
-            <div >
-              <button className="addCardlistBtn" onClick={addMoreList}>+ Add another list</button>
-            </div>
+          <div>
+            <button className="addCardlistBtn" onClick={addMoreList}>
+              + Add another list
+            </button>
+          </div>
         </div>
       </div>
     </DragDropContext>

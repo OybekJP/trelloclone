@@ -30,7 +30,6 @@ function List({
 
   //delete list
   function handleDeleteList() {
-    console.log("clicked list " + list.id);
     deleteList(list.id);
   }
 
