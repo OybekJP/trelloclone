@@ -4,10 +4,11 @@ import uuidv4 from "uuid/dist/v4";
 export default function Listtitle({ listTitleChange, list }) {
   const [newTitle, setTitle] = useState(false);
 
-  function handleListTitleChange(e) {
-    const listTitleSpan = document.getElementById("listTitleSpan").innerText;
-    listTitleChange(listTitleSpan, list.id);
-  }
+  //currently disabled because handleBlur function is taking care of its job
+  // function handleListTitleChange(e) {
+  //   const listTitleSpan = document.getElementById("listTitleSpan").innerText;
+  //   listTitleChange(listTitleSpan, list.id);
+  // }
 
   function handleListTitleToggle() {
     setTitle(!newTitle);
@@ -54,16 +55,5 @@ export default function Listtitle({ listTitleChange, list }) {
     );
   }
 
-  return (
-    <p>{listTitleToggle}</p>
-    // <input
-    //   type="text"
-    //   placeholder="enter title"
-    //   onChange={handleListTitleChange}
-    //   // onClick={}
-    //   //TASK: access listname from data in App later
-    //   value={list.title}
-    //   key={list.id}
-    // />
-  );
+  return <p>{listTitleToggle}</p>;
 }

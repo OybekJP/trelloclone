@@ -70,8 +70,6 @@ function App() {
     setData(newState);
   }
 
-  let newListTitle = useRef();
-
   function addMoreList() {
     const newListId = uuidv4();
     const newList = {
@@ -178,9 +176,8 @@ function App() {
         },
       };
       setData(newState);
-      return
+      return;
     }
-
 
     //logic for case when cards move from one list to another
     const startCardsOrder = Array.from(start.cards);

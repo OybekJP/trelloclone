@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import "./Card.css";
 import { Draggable } from "react-beautiful-dnd";
 // import styled from "styled-components";
-//yarn add styled-components 
+//yarn add styled-components
 
 function Card({ card, index, list, deleteCard, cardTitleChange }) {
   const [cards, setCard] = useState(false);
@@ -63,15 +63,6 @@ function Card({ card, index, list, deleteCard, cardTitleChange }) {
           ref={provided.innerRef}
           isDragging
         >
-          {/* <textarea
-            type="text"
-            ref={todoCard}
-            value={card.title}
-            onChange={handleTodoChange}
-          />
-          <button onClick={handleDeleteCard}>-</button>
-          <p>{card.title}</p>
-          <button onClick={handleCardToggle}>/</button> */}
           {cardToggle}
         </div>
       )}

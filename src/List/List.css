@@ -1,8 +1,6 @@
 .list_wrap {
-  /* height: 100%; */
   background: var(--light-gray);
   min-width: 272px;
-  max-width: 272px;
   margin: 0 4px;
   border-radius: 5px;
 }
@@ -10,7 +8,7 @@
   display: flex;
   flex-direction: column;
   margin: 5px;
-  max-height: 85vh;
+  max-height: 88vh;
 }
 .todoItems {
   overflow-y: auto;
@@ -19,40 +17,14 @@
   align-items: center;
   margin: 5px 0;
 }
-/* .listTitle input {
-  width: 100%;
-  font-size: 1.3rem;
-  background: var(--light-gray);
-} */
-/* .addTodo {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-} */
-/* .addTodo button {
-  position: relative;
-  margin-left: 5px;
-  background: #0079bf;
-  color: white;
-} */
-/* input,
-.addTodo button {
-  border: none;
-  padding: 5px 3px;
-  border-radius: 4px;
-} */
 
 .listTitle {
   display: block;
   overflow: hidden;
   resize: none;
-  line-height: 20px;
-  min-width: 17.5rem;
   border-radius: 4px;
   padding: 4px;
   padding-bottom: 0;
-
-  min-height: 20px;
   font-size: 1.3rem;
 }
 
@@ -85,7 +57,7 @@
 
 /*****add new card span styling******/
 .addCardSpan {
-  height: 60px;
+  min-height: 60px;
 }
 .addCardSpan[contenteditable]:empty::before {
   content: "Enter a title for this card...";

@@ -1,24 +1,21 @@
 .card_container {
-  /* display: flex; */
-  /* justify-content: stretch; */
-  /* align-items: flex-start; */
   position: relative;
   margin: 3px 0;
 }
 
 /*****created cards******/
 .textarea {
+  /*make textarea fit all multiline text*/
   display: block;
-  overflow: hidden;
+  /* overflow: hidden; */
   resize: none;
   line-height: 20px;
   cursor: pointer;
-  /*my own styling*/
+  /*styling css*/
   background-color: white;
   max-width: 17.5rem;
   border-radius: 4px;
   padding: 4px;
-  min-height: 20px;
   width:100vw;
 }
 .textarea:hover {
@@ -48,8 +45,4 @@
 
 .deleteCard {
   background-color: tomato !important;
-}
-
-.saveNewCard{
-  
 }

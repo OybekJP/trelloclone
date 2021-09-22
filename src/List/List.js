@@ -46,6 +46,7 @@ function List({
         <span
           contentEditable
           rows="3"
+          role="textbox"
           className="textarea addCardSpan"
           id="cardSpan"
           // onBlur={handleAddCardToggle} causing problem: cancel addmorecard method
