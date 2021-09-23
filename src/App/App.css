@@ -33,7 +33,7 @@ span:focus {
 
 /****Main container background****/
 body {
-  background: url("../bi_office.jpg");
+  background: url("../media/bi_office.jpg");
   /****make the background image fixed when scrolled and zoom in and out****/
   background-size: cover;
   background-attachment: fixed;
@@ -53,7 +53,7 @@ body {
 }
 .header i {
   color: white;
-  font-size: 16px;
+  /* font-size: 16px; */
   padding-right: 3px;
   overflow: hidden;
 }
@@ -91,15 +91,42 @@ button:hover {
   background-color: rgb(228, 224, 224);
 }
 
-/***responsive for mobile and tablets**/ 
+/***Social icons***/
+.socialsContianer {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  color: white;
+  right: 0;
+  margin-top:2px;
+}
+.socialIcons {
+  font-size: 22px;
+  margin: 0 0.5rem;
+}
+.fa-globe {
+  margin-right: 15px;
+}
+
+/***responsive for mobile and tablets**/
 @media screen and (max-width: 768px) {
   /***Makes the height dont exceed when width increases****/
   html,
   body {
     overflow-y: scroll;
   }
-  body{
+  body {
     background-position: center;
-    background-image: url("../tyler-franta-iusJ25iYu1c-unsplash.jpg");
+    background-image: url("../media/tyler-franta-iusJ25iYu1c-unsplash.jpg");
   }
+  
+  .socialIcons {
+    font-size: 22px;
+    margin: 0 0.1rem;
+    margin-top:2px;
+  }
+  .fa-globe {
+    /* margin-right: 15px; */
+  }
+  
 }

@@ -236,6 +236,17 @@ function App() {
         <header className="header">
           <i class="fab fa-trello"></i>
           <h1>Trello clone</h1>
+          <div className="socialsContianer">
+            <a target="_blank" href="https://oybekjp.github.io/oybek-portfolio/" rel="noreferrer">
+              <i class="socialIcons fas fa-globe"></i>
+            </a>
+            <a target="_blank" href="https://github.com/OybekJP" rel="noreferrer">
+              <i className="socialIcons fab fa-github"></i>
+            </a>
+            <a target="_blank" href="https://www.linkedin.com/in/oybek-anapiyaev/" rel="noreferrer" className="socialIcons">
+              <i className="socialIcons fab fa-linkedin"></i>
+            </a>
+          </div>
         </header>
         <Droppable droppableId="all-columns" direction="horizontal" type="list">
           {(provided) => (
