@@ -1,7 +1,7 @@
 # Trello clone
-This a trello clone, a tash management tool, that replicates main trello functionalities. I built it using React and react beautiful dnd. It is mobile and tablet responsive. 
+This a trello clone, a tash management tool, that replicates main trello functionalities. I built it using React and react beautiful dnd. It is mobile and tablet responsive. For now, it saves user data in browsers local storage.
 
-See it live [from here](https://oybekjp.github.io/My-Budget/).
+See it live [from here](https://trello-webapp.netlify.app/).
 
 ## Technologies
 * HTML
@@ -24,7 +24,7 @@ List of features
 ## Screenshot
 ![mobile version](https://raw.githubusercontent.com/OybekJP/budgetapp/master/media/mobile.png)
 
-![desktop version](https://raw.githubusercontent.com/OybekJP/budgetapp/master/media/desktop%20result.png)
+![desktop version](https://raw.githubusercontent.com/OybekJP/trelloclone/main/images/desktop.png)
 
 Next steps:
 * Add the ability to create multiple workspaces.
