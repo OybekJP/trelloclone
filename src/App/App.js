@@ -1,14 +1,28 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import List from "../List/List";
 import uuidv4 from "uuid/dist/v4";
 import store from "../utils/store";
-import StoreApi from "../utils/storeApi";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
+
+//key for saving data in local storage
+const LOCAL_STORAGE_KEY = "trellodata";
 
 function App() {
   const [data, setData] = useState(store);
 
+  //get data from users local storage/browser
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    if (data) setData(data);
+  }, []);
+
+  //save data in users local storage/browser
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
+  });
+
+  //change the title of the list
   function listTitleChange(title, listId) {
     const list = data.lists[listId];
     list.title = title;
@@ -22,6 +36,8 @@ function App() {
     };
     setData(newState);
   }
+
+  //change the title of the card
   function cardTitleChange(cardId, listId, title) {
     //save index of changed card
     let cardIndex;
@@ -49,6 +65,8 @@ function App() {
     };
     setData(newState);
   }
+
+  //add new card to existing lists
   function addMoreCard(listId, newCardTitle) {
     //make a copy of current data
     const newCardId = uuidv4();
@@ -63,13 +81,14 @@ function App() {
       ...data,
       lists: {
         ...data.lists,
-        //eventhough we copied all lists including one we want to update, our updated list will replace it because of the nature of objects.
+        //eventhough we copied all lists including one we want to update, our updated list will override it because of the nature of objects.
         [listId]: updatedList,
       },
     };
     setData(newState);
   }
 
+  //crete new list
   function addMoreList() {
     const newListId = uuidv4();
     const newList = {
@@ -87,6 +106,7 @@ function App() {
     setData(newState);
   }
 
+  //delete one of the existing lists
   function deleteList(listId) {
     const newData = data;
     //TASK:delete this direct state modification if local stroage doesnt store it
@@ -99,6 +119,7 @@ function App() {
     setData(newState);
   }
 
+  //delete once of the cards in existing lists
   function deleteCard(cardId, listId) {
     const newCards = data.lists[listId].cards.filter(
       (card) => card.id !== cardId
@@ -116,7 +137,7 @@ function App() {
     setData(newState);
   }
 
-  //persist reordering of cards and columns during drag and drop
+  //Darag and drop logoc. Persist reordering of cards and columns during drag and drop
   const onDragEnd = (result) => {
     const { destination, source, draggableId, type } = result;
 
@@ -214,7 +235,7 @@ function App() {
       <div className="App">
         <nav className="header">
           <i class="fab fa-trello"></i>
-          <h1>Trello mini</h1>
+          <h1>Trello clone</h1>
         </nav>
         <Droppable droppableId="all-columns" direction="horizontal" type="list">
           {(provided) => (

@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./List.css";
 import Card from "../Card/Card";
 import Listtitle from "../Listtitle/Listtitle";
-import StoreApi from "../utils/storeApi";
-import uuidv4 from "uuid/dist/v4";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 
 function List({
@@ -70,7 +68,11 @@ function List({
   return (
     <Draggable draggableId={list.id} index={listIndex}>
       {(provided) => (
-        <div className="list_wrap" {...provided.draggableProps} ref={provided.innerRef}>
+        <div
+          className="list_wrap"
+          {...provided.draggableProps}
+          ref={provided.innerRef}
+        >
           <div className="list_content">
             <div className="listTitleContainer" {...provided.dragHandleProps}>
               <Listtitle listTitleChange={listTitleChange} list={list} />

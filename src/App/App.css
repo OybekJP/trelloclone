@@ -1,5 +1,4 @@
 /*****Colors variable*****/
-
 :root {
   --blue: #0079bf;
   --dark-blue: #016199;
@@ -32,6 +31,12 @@ span:focus {
   outline: none;
 }
 
+/****Main container background****/
+body {
+  background: #d6d3ce url("../bi_office.jpg") no-repeat fixed center;
+  background-size: 100vw;
+}
+
 /*****Header*****/
 .header {
   text-align: center;
@@ -43,17 +48,17 @@ span:focus {
   justify-content: center;
   position: fixed;
   width: 100%;
-  top:0;
+  top: 0;
 }
 .header i {
-  color: #79b0d0;
+  color: white;
   font-size: 16px;
   padding-right: 3px;
   overflow: hidden;
 }
 h1 {
   font-size: 1.4rem;
-  color: #79b0d0;
+  color: white;
 }
 
 /****Basic button setup*****/
@@ -68,15 +73,12 @@ button:hover {
   opacity: 1;
 }
 
-
 /****List container*****/
 .listContainer {
   display: flex;
   align-items: flex-start;
-  /* overflow-x: scroll; */
-  /* overflow-y: hidden; */
   margin: 5px;
-  margin-top:35px;
+  margin-top: 35px;
 }
 
 /****Add new list button*****/
@@ -86,4 +88,11 @@ button:hover {
   top: 0;
   min-width: 18.5rem;
   background-color: rgb(228, 224, 224);
+}
+@media screen and (max-width: 480px) {
+  body {
+    max-height: 780px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
 }

@@ -1,8 +1,6 @@
 import React, { useRef, useState } from "react";
 import "./Card.css";
 import { Draggable } from "react-beautiful-dnd";
-// import styled from "styled-components";
-//yarn add styled-components
 
 function Card({ card, index, list, deleteCard, cardTitleChange }) {
   const [cards, setCard] = useState(false);
@@ -48,6 +46,7 @@ function Card({ card, index, list, deleteCard, cardTitleChange }) {
   function handleDeleteCard() {
     deleteCard(card.id, list.id);
   }
+  //handle the cards title change
   function handleCardTitleChange(e) {
     const cardTitleSpan = document.getElementById("cardTitleSpan").innerText;
     cardTitleChange(card.id, list.id, cardTitleSpan);

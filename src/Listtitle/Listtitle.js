@@ -1,19 +1,13 @@
 import React, { useState } from "react";
-import uuidv4 from "uuid/dist/v4";
 
 export default function Listtitle({ listTitleChange, list }) {
   const [newTitle, setTitle] = useState(false);
-
-  //currently disabled because handleBlur function is taking care of its job
-  // function handleListTitleChange(e) {
-  //   const listTitleSpan = document.getElementById("listTitleSpan").innerText;
-  //   listTitleChange(listTitleSpan, list.id);
-  // }
 
   function handleListTitleToggle() {
     setTitle(!newTitle);
   }
 
+  //handle the change of the lists title when the list title is clicked and loses focus 
   const handleBlur = (e) => {
     const currentTarget = e.currentTarget;
     const listTitleSpan = document.getElementById("listTitleSpan").innerText;
