@@ -33,13 +33,14 @@ span:focus {
 
 /****Main container background****/
 body {
-  background: #d6d3ce url("../bi_office.jpg") no-repeat fixed center;
-  background-size: 100vw;
+  background: url("../bi_office.jpg");
+  /****make the background image fixed when scrolled and zoom in and out****/
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 /*****Header*****/
 .header {
-  text-align: center;
   padding: 5px 0;
   max-height: 30px;
   background: var(--blue);
@@ -89,10 +90,16 @@ button:hover {
   min-width: 18.5rem;
   background-color: rgb(228, 224, 224);
 }
-@media screen and (max-width: 480px) {
+
+/***responsive for mobile and tablets**/ 
+@media screen and (max-width: 768px) {
+  /***Makes the height dont exceed when width increases****/
+  html,
   body {
-    max-height: 780px;
-    overflow-x: hidden;
-    overflow-y: hidden;
+    overflow-y: scroll;
+  }
+  body{
+    background-position: center;
+    background-image: url("../tyler-franta-iusJ25iYu1c-unsplash.jpg");
   }
 }

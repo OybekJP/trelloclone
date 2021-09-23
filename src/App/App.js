@@ -233,10 +233,10 @@ function App() {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="App">
-        <nav className="header">
+        <header className="header">
           <i class="fab fa-trello"></i>
           <h1>Trello clone</h1>
-        </nav>
+        </header>
         <Droppable droppableId="all-columns" direction="horizontal" type="list">
           {(provided) => (
             <div

@@ -7,7 +7,6 @@
 .textarea {
   /*make textarea fit all multiline text*/
   display: block;
-  /* overflow: hidden; */
   resize: none;
   line-height: 20px;
   cursor: pointer;
@@ -28,7 +27,6 @@
   position: absolute;
   right: 4px;
   top: 4px;
-  /* z-index:100; */
   color: transparent;
   cursor: pointer;
 }
