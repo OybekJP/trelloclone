@@ -1,5 +1,5 @@
 # Trello clone
-This a trello clone, a tash management tool, that replicates main trello functionalities. I built it using React and react beautiful dnd. It is mobile and tablet responsive. For now, it saves user data in browsers local storage.
+This is a Trello clone, a task management tool, that has main Trello functionalities including drag and drop. I built it using React and react beautiful dnd. It is mobile and tablet responsive. For now, it saves user data in browser's local storage.
 
 See it live [from here](https://trello-webapp.netlify.app/).
 
