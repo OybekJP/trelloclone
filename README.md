@@ -22,7 +22,7 @@ List of features
 * Coun the number of cards in a list
 
 ## Screenshot
-![mobile version](https://raw.githubusercontent.com/OybekJP/budgetapp/master/media/mobile.png)
+![mobile version](https://raw.githubusercontent.com/OybekJP/trelloclone/main/images/mobile.png)
 
 ![desktop version](https://raw.githubusercontent.com/OybekJP/trelloclone/main/images/desktop.png)
 
