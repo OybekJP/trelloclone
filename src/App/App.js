@@ -237,7 +237,7 @@ function App() {
           <i class="fab fa-trello"></i>
           <h1>Trello clone</h1>
           <div className="socialsContianer">
-            <a target="_blank" href="https://oybekjp.github.io/oybek-portfolio/" rel="noreferrer">
+            <a target="_blank" href="https://oybek-portfolio.me/" rel="noreferrer">
               <i class="socialIcons fas fa-globe"></i>
             </a>
             <a target="_blank" href="https://github.com/OybekJP" rel="noreferrer">
